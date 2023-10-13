@@ -2,6 +2,7 @@ rootProject.name = "Lab2SOA"
 
 include("services:agency-service")
 include("services:flat-service")
+include("common")
 
 pluginManagement {
     val kotlinVersion = "1.7.22"
