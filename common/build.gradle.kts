@@ -34,3 +34,7 @@ tasks.withType<Test> {
 }
 
 tasks.register("prepareKotlinBuildScriptModel")
+
+tasks.jar {
+    archiveBaseName.set("common")
+}

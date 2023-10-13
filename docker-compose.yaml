@@ -18,19 +18,15 @@ services:
       timeout: 5s
       retries: 5
 
-  agency:
-    build:
-      context: services/agency-service
-      dockerfile: dockerfile
+  agency-service:
+    build: services/agency-service
     restart: unless-stopped
     depends_on:
       postgres:
         condition: service_healthy
 
-  flat:
-    build:
-      context: services/flat-service
-      dockerfile: dockerfile
+  flat-service:
+    build: services/flat-service
     restart: unless-stopped
     depends_on:
       postgres:
