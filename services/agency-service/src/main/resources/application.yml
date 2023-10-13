@@ -6,3 +6,7 @@ server:
         key-alias: iver
         key-password: iveriver
         enabled: true
+
+flat:
+    api:
+        url: "localhost:8080"
