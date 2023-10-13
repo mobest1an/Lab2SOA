@@ -1,8 +1,21 @@
 server:
-    ssl:
-        key-store: classpath:keystore/iver.p12
-        key-store-password: iveriver
-        key-store-type: PKCS12
-        key-alias: iver
-        key-password: iveriver
-        enabled: true
+  ssl:
+    key-store: classpath:keystore/iver.p12
+    key-store-password: iveriver
+    key-store-type: PKCS12
+    key-alias: iver
+    key-password: iveriver
+    enabled: true
+
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+logging:
+  level:
+    web: debug

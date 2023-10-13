@@ -1,15 +1,9 @@
-package com.iver.common.model
+package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.view
 
+import com.iver.flatservice.model.*
 import java.util.*
-import javax.persistence.*
 
-typealias FlatId = Long
-
-@Entity
-@Table(name = "flat")
-data class Flat(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+class FlatView(
     val id: FlatId, //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     val name: String, //Поле не может быть null, Строка не может быть пустой
     val coordinates: Coordinates, //Поле не может быть null
@@ -20,4 +14,17 @@ data class Flat(
     val view: View, //Поле не может быть null
     val transport: Transport, //Поле может быть null
     val house: House, //Поле не может быть null
-)
+) {
+    constructor(flat: Flat) : this(
+        flat.id,
+        flat.name,
+        flat.coordinates,
+        flat.creationDate,
+        flat.area,
+        flat.numberOfRooms,
+        flat.furnish,
+        flat.view,
+        flat.transport,
+        flat.house,
+    )
+}
