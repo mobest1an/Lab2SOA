@@ -1,6 +1,6 @@
 package com.iver.flatservice.service
 
-import com.iver.flatservice.model.Flat
+import com.iver.common.model.Flat
 import com.iver.flatservice.repo.FlatRepository
 import org.springframework.stereotype.Service
 

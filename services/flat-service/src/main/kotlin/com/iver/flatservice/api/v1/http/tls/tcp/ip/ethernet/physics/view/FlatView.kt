@@ -1,6 +1,7 @@
 package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.view
 
-import com.iver.flatservice.model.*
+
+import com.iver.common.model.*
 import java.util.*
 
 class FlatView(

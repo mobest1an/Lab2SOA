@@ -19,8 +19,8 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.data:spring-data-commons")
-    implementation("org.springframework.data:spring-data-jpa")
+    implementation("org.springframework.data:spring-data-commons:2.7.4")
+    implementation("org.springframework.data:spring-data-jpa:2.7.4")
     implementation("javax.persistence:javax.persistence-api:2.2")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")

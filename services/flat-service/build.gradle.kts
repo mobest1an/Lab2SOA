@@ -28,6 +28,7 @@ dependencies {
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("javax.persistence:javax.persistence-api:2.2")
     runtimeOnly("org.postgresql:postgresql")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
