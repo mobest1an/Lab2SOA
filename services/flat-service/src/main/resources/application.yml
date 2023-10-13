@@ -11,7 +11,7 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
   datasource:
     url: jdbc:postgresql://localhost:54320/flat
     username: flat

@@ -12,6 +12,7 @@ data class Flat(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: FlatId, //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     val name: String, //Поле не может быть null, Строка не может быть пустой
+    @OneToOne
     val coordinates: Coordinates, //Поле не может быть null
     val creationDate: Date, //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     val area: Int, //Максимальное значение поля: 700, Значение поля должно быть больше 0
@@ -19,5 +20,6 @@ data class Flat(
     val furnish: Furnish, //Поле может быть null
     val view: View, //Поле не может быть null
     val transport: Transport, //Поле может быть null
+    @OneToOne
     val house: House, //Поле не может быть null
 )
