@@ -1,4 +1,4 @@
-package com.iver.flatservice.repo
+package com.iver.flatservice.dao
 
 import com.iver.common.model.House
 import com.iver.common.model.HouseID

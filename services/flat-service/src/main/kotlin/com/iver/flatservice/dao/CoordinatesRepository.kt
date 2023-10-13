@@ -1,4 +1,4 @@
-package com.iver.flatservice.repo;
+package com.iver.flatservice.dao;
 
 import com.iver.common.model.Coordinates
 import com.iver.common.model.CoordinatesId

@@ -1,20 +1,56 @@
 package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics
 
-import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.request.FlatCreateRequest
-import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.request.toFlat
-import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.view.FlatView
+import com.iver.common.model.FlatId
+import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.requests.FlatRequest
+import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.FlatView
+import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.FlatsRepresentation
+import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.pageToRepresentation
 import com.iver.flatservice.service.FlatService
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v1/flats")
 class FlatController(
     private val flatService: FlatService,
 ) {
+
+    @GetMapping("/{id}")
+    fun getFlatById(@PathVariable id: FlatId): FlatView {
+        return FlatView(flatService.getFlatById(id))
+    }
+
     @PostMapping
-    fun create(createRequest: FlatCreateRequest): FlatView {
-        return FlatView(flatService.create(createRequest.toFlat()))
+    fun createFlat(flatRequest: FlatRequest): FlatView {
+        return FlatView(flatService.createFlat(flatRequest))
+    }
+
+    @PutMapping("/{id}")
+    fun updateFlat(@PathVariable id: FlatId, updateFlatRequest: FlatRequest): FlatView {
+        return FlatView(flatService.updateFlat(id, updateFlatRequest))
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteFlat(@PathVariable id: FlatId) {
+        flatService.deleteFlat(id)
+    }
+
+    @GetMapping()
+    fun getAllFlats(page: Int?, size: Int?): FlatsRepresentation {
+        if (page == null || size == null) {
+            return FlatsRepresentation(
+                flatService.getAllFlats().map {
+                    FlatView(it)
+                },
+                0,
+                0
+            )
+        }
+
+        return pageToRepresentation(flatService.getAllFlatsPageable(
+            page = page,
+            size = size,
+        ).map {
+            FlatView(it)
+        })
     }
 }

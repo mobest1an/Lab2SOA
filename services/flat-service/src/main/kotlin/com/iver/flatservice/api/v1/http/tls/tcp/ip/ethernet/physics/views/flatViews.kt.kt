@@ -1,7 +1,8 @@
-package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.view
+package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views
 
 
 import com.iver.common.model.*
+import org.springframework.data.domain.Page
 import java.util.*
 
 class FlatView(
@@ -15,6 +16,7 @@ class FlatView(
     val view: View, //Поле не может быть null
     val transport: Transport, //Поле может быть null
     val house: House, //Поле не может быть null
+    val cost: Double,
 ) {
     constructor(flat: Flat) : this(
         flat.id,
@@ -27,5 +29,16 @@ class FlatView(
         flat.view,
         flat.transport,
         flat.house,
+        flat.cost,
     )
+}
+
+class FlatsRepresentation(
+    val flats: List<FlatView>,
+    val elements: Long,
+    val pages: Int,
+)
+
+fun pageToRepresentation(page: Page<FlatView>): FlatsRepresentation {
+    return FlatsRepresentation(page.content, page.totalElements, page.totalPages)
 }
