@@ -10,8 +10,8 @@ typealias HouseID = Long
 class House(
     @Id
     @GeneratedValue
-    private val id: HouseID,
-    private val name: String, //Поле может быть null
-    private val year: Int, //Поле не может быть null, Значение поля должно быть больше 0
-    private val numberOfFlatsOnFloor: Int, //Значение поля должно быть больше 0
+    val id: HouseID,
+    val name: String, //Поле может быть null
+    val year: Int, //Поле не может быть null, Значение поля должно быть больше 0
+    val numberOfFlatsOnFloor: Int, //Значение поля должно быть больше 0
 )

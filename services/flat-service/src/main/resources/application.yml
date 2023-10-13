@@ -10,8 +10,7 @@ server:
 
 spring:
   jpa:
-    hibernate:
-      ddl-auto: create
+    generate-ddl: true
   datasource:
     url: jdbc:postgresql://localhost:54320/flat
     username: flat

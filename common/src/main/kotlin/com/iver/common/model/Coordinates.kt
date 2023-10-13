@@ -11,7 +11,7 @@ typealias CoordinatesId = Long
 data class Coordinates(
     @Id
     @GeneratedValue
-    private val id: CoordinatesId,
-    private val x: Int, //Максимальное значение поля: 235, Поле не может быть null
-    private val y: Long, //Поле не может быть null
+    val id: CoordinatesId,
+    val x: Int, //Максимальное значение поля: 235, Поле не может быть null
+    val y: Long, //Поле не может быть null
 )

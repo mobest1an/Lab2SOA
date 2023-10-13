@@ -25,9 +25,6 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    runtimeOnly("org.postgresql:postgresql")
-
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
 

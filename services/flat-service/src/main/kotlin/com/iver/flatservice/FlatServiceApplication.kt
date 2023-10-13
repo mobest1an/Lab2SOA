@@ -11,8 +11,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
     UserDetailsServiceAutoConfiguration::class
 ])
 @EntityScan(basePackages = ["com.iver.common.model", "com.iver.flatservice"])
-@EnableJpaRepositories(basePackages = ["com.iver.common.model", "com.iver.flatservice"])
-@ComponentScan(basePackages = ["com.iver.common.model", "com.iver.flatservice"])
+@EnableJpaRepositories(basePackages = ["com.iver.common", "com.iver.flatservice"])
+@ComponentScan(basePackages = ["com.iver.common", "com.iver.flatservice"])
 class FlatServiceApplication
 
 fun main(args: Array<String>) {

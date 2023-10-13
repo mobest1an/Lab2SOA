@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/agency")
+@RequestMapping("/api/v1/agency")
 class AgencyController(
     private val agencyService: AgencyService,
 ) {

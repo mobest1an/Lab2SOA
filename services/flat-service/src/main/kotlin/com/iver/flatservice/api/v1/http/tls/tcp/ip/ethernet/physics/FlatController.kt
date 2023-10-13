@@ -20,13 +20,13 @@ class FlatController(
     }
 
     @PostMapping
-    fun createFlat(flatRequest: FlatRequest): FlatView {
+    fun createFlat(@RequestBody flatRequest: FlatRequest): FlatView {
         return FlatView(flatService.createFlat(flatRequest))
     }
 
     @PutMapping("/{id}")
-    fun updateFlat(@PathVariable id: FlatId, updateFlatRequest: FlatRequest): FlatView {
-        return FlatView(flatService.updateFlat(id, updateFlatRequest))
+    fun updateFlat(@PathVariable id: FlatId, @RequestBody flatRequest: FlatRequest): FlatView {
+        return FlatView(flatService.updateFlat(id, flatRequest))
     }
 
     @DeleteMapping("/{id}")
@@ -34,7 +34,7 @@ class FlatController(
         flatService.deleteFlat(id)
     }
 
-    @GetMapping()
+    @GetMapping
     fun getAllFlats(page: Int?, size: Int?): FlatsRepresentation {
         if (page == null || size == null) {
             return FlatsRepresentation(
