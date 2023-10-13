@@ -1,7 +1,7 @@
 package com.iver.flatservice.repo
 
-import com.iver.flatservice.model.House
-import com.iver.flatservice.model.HouseID
+import com.iver.common.model.House
+import com.iver.common.model.HouseID
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 

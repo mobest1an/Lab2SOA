@@ -1,6 +1,6 @@
 package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.request
 
-import com.iver.flatservice.model.*
+import com.iver.common.model.*
 import java.util.*
 
 data class FlatCreateRequest(

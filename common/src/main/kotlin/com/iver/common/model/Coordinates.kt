@@ -1,8 +1,9 @@
-package com.iver.flatservice.model
+package com.iver.common.model
 
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+
 
 typealias CoordinatesId = Long
 

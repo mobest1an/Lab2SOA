@@ -1,4 +1,4 @@
-package com.iver.flatservice.model
+package com.iver.common.model
 
 
 enum class Furnish {
