@@ -9,7 +9,9 @@ import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.pageTo
 import com.iver.flatservice.service.FlatService
 import com.iver.flatservice.utils.FlatSpecificationBuilder
 import org.springframework.http.HttpStatus
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/flats")
@@ -24,12 +26,12 @@ class FlatController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createFlat(@RequestBody flatRequest: FlatRequest): FlatView {
+    fun createFlat(@Valid @RequestBody flatRequest: FlatRequest): FlatView {
         return FlatView(flatService.createFlat(flatRequest))
     }
 
     @PutMapping("/{id}")
-    fun updateFlat(@PathVariable id: FlatId, @RequestBody flatRequest: FlatRequest): FlatView {
+    fun updateFlat(@PathVariable id: FlatId, @Valid @RequestBody flatRequest: FlatRequest): FlatView {
         return FlatView(flatService.updateFlat(id, flatRequest))
     }
 

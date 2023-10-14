@@ -9,11 +9,11 @@ import retrofit2.http.Path
 
 interface FlatsAPI {
 
-    @GET("/{id}")
+    @GET("flats/{id}")
     fun getFlatById(
         @Path("id") flatId: FlatId,
     ): Call<FlatView>
 
-    @GET("")
+    @GET("flats")
     fun getAllFlats(): Call<FlatsRepresentation>
 }
