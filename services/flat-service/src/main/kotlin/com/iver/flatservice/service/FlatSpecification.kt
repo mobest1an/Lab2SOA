@@ -1,25 +1,21 @@
 package com.iver.flatservice.service
 
-import com.iver.common.model.Flat
-import com.iver.common.model.Furnish
-import com.iver.common.model.Transport
-import com.iver.common.model.View
+import com.iver.common.model.*
 import com.iver.flatservice.utils.SearchCriteria
 import com.iver.flatservice.utils.SearchOperation
 import org.springframework.data.jpa.domain.Specification
 import java.util.*
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.CriteriaQuery
-import javax.persistence.criteria.Predicate
-import javax.persistence.criteria.Root
+import javax.persistence.criteria.*
+
 
 class FlatSpecification(private val searchCriteria: SearchCriteria) : Specification<Flat> {
 
     override fun toPredicate(root: Root<Flat>, query: CriteriaQuery<*>, criteriaBuilder: CriteriaBuilder): Predicate? {
         val strToSearch = searchCriteria.value.toString()
+        val baseKey = searchCriteria.key.split(".")[0]
 
         val predicates = mutableListOf<Predicate>()
-        when (root.get<Any>(searchCriteria.key).javaType) {
+        when (root.get<Any>(baseKey).javaType) {
             Furnish.FINE.javaClass -> {
                 predicates.add(criteriaBuilder.equal(root.get<Any>(searchCriteria.key), Furnish.valueOf(strToSearch)))
                 predicates.add(criteriaBuilder.notEqual(root.get<Any>(searchCriteria.key), Furnish.valueOf(strToSearch)))
@@ -43,6 +39,26 @@ class FlatSpecification(private val searchCriteria: SearchCriteria) : Specificat
                 predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get(searchCriteria.key), View.valueOf(strToSearch)))
                 predicates.add(criteriaBuilder.lessThan(root.get(searchCriteria.key), View.valueOf(strToSearch)))
                 predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get(searchCriteria.key), View.valueOf(strToSearch)))
+            }
+            House::class.java -> {
+                val houseJoin = root.join<Flat, House>("house")
+                val nestedKey = searchCriteria.key.split(".")[1]
+                predicates.add(criteriaBuilder.equal(houseJoin.get<Any>(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.notEqual(houseJoin.get<Any>(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.greaterThan(houseJoin.get(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(houseJoin.get(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.lessThan(houseJoin.get(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(houseJoin.get(nestedKey), strToSearch))
+            }
+            Coordinates::class.java -> {
+                val coordinatesJoin = root.join<Flat, Coordinates>("coordinates")
+                val nestedKey = searchCriteria.key.split(".")[1]
+                predicates.add(criteriaBuilder.equal(coordinatesJoin.get<Any>(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.notEqual(coordinatesJoin.get<Any>(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.greaterThan(coordinatesJoin.get(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(coordinatesJoin.get(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.lessThan(coordinatesJoin.get(nestedKey), strToSearch))
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(coordinatesJoin.get(nestedKey), strToSearch))
             }
             else -> {
                 predicates.add(criteriaBuilder.equal(root.get<Any>(searchCriteria.key), strToSearch))
