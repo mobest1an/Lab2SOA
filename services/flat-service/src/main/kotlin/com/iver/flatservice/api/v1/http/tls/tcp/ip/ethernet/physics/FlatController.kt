@@ -46,12 +46,12 @@ class FlatController(
         flatService.deleteByTransport(transport)
     }
 
-    @PostMapping("/flats/all-number-of-rooms-sum")
+    @PostMapping("/all-number-of-rooms-sum")
     fun calculateSumOfRoomNumbers(): Long {
         return flatService.calculateSumOfRoomNumbers()
     }
 
-    @PostMapping("/flats/by-start-sub-name/{sub-name}")
+    @PostMapping("/by-start-sub-name/{sub-name}")
     fun getFlatsNameStartsWith(@PathVariable("sub-name") subName: String): List<Flat> {
         return flatService.getFlatsNameStartsWith(subName)
     }
