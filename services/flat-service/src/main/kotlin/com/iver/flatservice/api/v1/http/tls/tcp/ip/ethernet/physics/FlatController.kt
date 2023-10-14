@@ -6,6 +6,7 @@ import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.FlatVi
 import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.FlatsRepresentation
 import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.pageToRepresentation
 import com.iver.flatservice.service.FlatService
+import com.iver.flatservice.utils.FlatSpecificationBuilder
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -35,10 +36,18 @@ class FlatController(
     }
 
     @GetMapping
-    fun getAllFlats(page: Int?, size: Int?): FlatsRepresentation {
+    fun getAllFlats(page: Int?, size: Int?, sort: String?, filters: Array<String>?): FlatsRepresentation {
+        if (filters != null) {
+            val flatSpecificationBuilder = FlatSpecificationBuilder();
+
+            flatSpecificationBuilder.parseCriteria(filters)
+
+            return FlatsRepresentation(flatService.getAllFlatsBySearchCriteria(flatSpecificationBuilder.build()!!).map { FlatView(it) }, 0, 0)
+        }
+
         if (page == null || size == null) {
             return FlatsRepresentation(
-                flatService.getAllFlats().map {
+                flatService.getAllFlats(sort).map {
                     FlatView(it)
                 },
                 0,
@@ -49,6 +58,7 @@ class FlatController(
         return pageToRepresentation(flatService.getAllFlatsPageable(
             page = page,
             size = size,
+            sort
         ).map {
             FlatView(it)
         })
