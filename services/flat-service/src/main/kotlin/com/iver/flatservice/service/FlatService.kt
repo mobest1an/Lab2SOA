@@ -1,10 +1,7 @@
 package com.iver.flatservice.service
 
 import com.iver.common.exception.NotFoundException
-import com.iver.common.model.Coordinates
-import com.iver.common.model.Flat
-import com.iver.common.model.FlatId
-import com.iver.common.model.House
+import com.iver.common.model.*
 import com.iver.common.utils.checkAscOrDesc
 import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.requests.FlatRequest
 import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.requests.toFlat
@@ -40,6 +37,26 @@ class FlatService(
 
     fun deleteFlat(flatId: FlatId) {
         flatRepository.deleteById(flatId)
+    }
+
+    fun deleteByTransport(transportCode: String) {
+        val transport = Transport.valueOf(transportCode)
+        val flat = flatRepository.findFirstByTransport(transport)
+        deleteFlat(flat.id)
+    }
+
+    fun calculateSumOfRoomNumbers(): Long {
+        val flats = getAllFlats(null)
+        var sum = 0L
+        for (flat in flats) {
+            sum += flat.numberOfRooms
+        }
+
+        return sum
+    }
+
+    fun getFlatsNameStartsWith(subName: String): List<Flat> {
+        return flatRepository.findByNameStartingWith(subName)
     }
 
     fun getAllFlats(sort: String?): List<Flat> {

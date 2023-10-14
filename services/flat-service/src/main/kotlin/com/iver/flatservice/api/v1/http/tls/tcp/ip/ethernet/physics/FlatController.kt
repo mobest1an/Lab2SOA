@@ -1,5 +1,6 @@
 package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics
 
+import com.iver.common.model.Flat
 import com.iver.common.model.FlatId
 import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.requests.FlatRequest
 import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.FlatView
@@ -7,6 +8,7 @@ import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.FlatsR
 import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.pageToRepresentation
 import com.iver.flatservice.service.FlatService
 import com.iver.flatservice.utils.FlatSpecificationBuilder
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -21,6 +23,7 @@ class FlatController(
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     fun createFlat(@RequestBody flatRequest: FlatRequest): FlatView {
         return FlatView(flatService.createFlat(flatRequest))
     }
@@ -30,9 +33,27 @@ class FlatController(
         return FlatView(flatService.updateFlat(id, flatRequest))
     }
 
+
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteFlat(@PathVariable id: FlatId) {
         flatService.deleteFlat(id)
+    }
+
+    @PostMapping("/delete-one-by-transport/{transport}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteByTransport(@PathVariable transport: String) {
+        flatService.deleteByTransport(transport)
+    }
+
+    @PostMapping("/flats/all-number-of-rooms-sum")
+    fun calculateSumOfRoomNumbers(): Long {
+        return flatService.calculateSumOfRoomNumbers()
+    }
+
+    @PostMapping("/flats/by-start-sub-name/{sub-name}")
+    fun getFlatsNameStartsWith(@PathVariable("sub-name") subName: String): List<Flat> {
+        return flatService.getFlatsNameStartsWith(subName)
     }
 
     @GetMapping
@@ -52,7 +73,6 @@ class FlatController(
                     0
                 )
             }
-
 
             return FlatsRepresentation(
                 flatService.getAllFlats(sort).map {
