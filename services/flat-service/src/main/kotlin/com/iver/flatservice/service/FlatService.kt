@@ -51,15 +51,32 @@ class FlatService(
             pageable = PageRequest.of(
                 page,
                 size,
-                Sort.by(sort ?: "id")
+                checkAscOrDesc(sort ?: "id")
             )
         )
     }
 
     fun getAllFlatsBySearchCriteria(
-        spec: Specification<Flat>,
+        spec: Specification<Flat>, sort: String?
     ): List<Flat> {
-        return flatCriteriaRepository.findAll(spec)
+        return flatCriteriaRepository.findAll(
+            spec,
+            checkAscOrDesc(sort ?: "id"),
+        )
+    }
+
+    fun getAllFlatsBySearchCriteriaPageable(
+        spec: Specification<Flat>,
+        page: Int, size: Int, sort: String?
+    ): Page<Flat> {
+        return flatCriteriaRepository.findAll(
+            spec,
+            PageRequest.of(
+                page,
+                size,
+                checkAscOrDesc(sort ?: "id")
+            )
+        )
     }
 
     private fun save(flat: Flat): Flat {

@@ -37,21 +37,44 @@ class FlatController(
 
     @GetMapping
     fun getAllFlats(page: Int?, size: Int?, sort: String?, filters: Array<String>?): FlatsRepresentation {
-        if (filters != null) {
-            val flatSpecificationBuilder = FlatSpecificationBuilder();
-
-            flatSpecificationBuilder.parseCriteria(filters)
-
-            return FlatsRepresentation(flatService.getAllFlatsBySearchCriteria(flatSpecificationBuilder.build()!!).map { FlatView(it) }, 0, 0)
-        }
-
         if (page == null || size == null) {
+            if (filters != null) {
+                val flatSpecificationBuilder = FlatSpecificationBuilder();
+
+                flatSpecificationBuilder.parseCriteria(filters)
+
+                return FlatsRepresentation(
+                    flatService.getAllFlatsBySearchCriteria(
+                        flatSpecificationBuilder.build()!!,
+                        sort
+                    ).map { FlatView(it) },
+                    0,
+                    0
+                )
+            }
+
+
             return FlatsRepresentation(
                 flatService.getAllFlats(sort).map {
                     FlatView(it)
                 },
                 0,
                 0
+            )
+        }
+
+        if (filters != null) {
+            val flatSpecificationBuilder = FlatSpecificationBuilder();
+
+            flatSpecificationBuilder.parseCriteria(filters)
+
+            return pageToRepresentation(
+                flatService.getAllFlatsBySearchCriteriaPageable(
+                    flatSpecificationBuilder.build()!!,
+                    page,
+                    size,
+                    sort
+                ).map { FlatView(it) },
             )
         }
 
