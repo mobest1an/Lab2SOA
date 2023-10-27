@@ -3,8 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm")
     kotlin("plugin.jpa")
-    kotlin("plugin.allopen")
-    kotlin("plugin.noarg")
+    kotlin("plugin.spring")
 }
 
 group = "com.iver"

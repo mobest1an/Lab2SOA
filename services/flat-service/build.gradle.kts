@@ -7,7 +7,6 @@ plugins {
     kotlin("jvm")
     kotlin("plugin.jpa")
     kotlin("plugin.spring")
-    kotlin("plugin.noarg")
 }
 
 group = "com.iver"

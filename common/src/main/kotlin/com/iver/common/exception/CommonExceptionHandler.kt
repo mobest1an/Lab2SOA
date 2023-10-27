@@ -1,26 +1,16 @@
 package com.iver.common.exception
 
+import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.client.HttpServerErrorException.InternalServerError
 
 
 @ControllerAdvice
-class ExceptionHandler {
-
-    @ExceptionHandler
-    fun handleInternalServerError(e: InternalServerError): ResponseEntity<ErrorResponseWrapper> =
-        ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(
-                ErrorResponseWrapper(
-                    status = HTTPErrorResponseStatus.INTERNAL_SERVER_ERROR,
-                    description = e.message ?: "Something went wrong"
-                )
-            )
+@Order(1)
+class CommonExceptionHandler {
 
     @ExceptionHandler
     fun handleNotFound(e: NotFoundException): ResponseEntity<ErrorResponseWrapper> =
