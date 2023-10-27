@@ -19,23 +19,27 @@ class FlatController(
     private val flatService: FlatService,
 ) {
 
+    @CrossOrigin
     @GetMapping("/{id}")
     fun getFlatById(@PathVariable id: FlatId): FlatView {
         return FlatView(flatService.getFlatById(id))
     }
 
+    @CrossOrigin
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun createFlat(@Valid @RequestBody flatRequest: FlatRequest): FlatView {
         return FlatView(flatService.createFlat(flatRequest))
     }
 
+    @CrossOrigin
     @PutMapping("/{id}")
     fun updateFlat(@PathVariable id: FlatId, @Valid @RequestBody flatRequest: FlatRequest): FlatView {
         return FlatView(flatService.updateFlat(id, flatRequest))
     }
 
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteFlat(@PathVariable id: FlatId) {
@@ -48,16 +52,19 @@ class FlatController(
         flatService.deleteByTransport(transport)
     }
 
+    @CrossOrigin
     @PostMapping("/all-number-of-rooms-sum")
     fun calculateSumOfRoomNumbers(): Long {
         return flatService.calculateSumOfRoomNumbers()
     }
 
+    @CrossOrigin
     @PostMapping("/by-start-sub-name/{sub-name}")
     fun getFlatsNameStartsWith(@PathVariable("sub-name") subName: String): List<Flat> {
         return flatService.getFlatsNameStartsWith(subName)
     }
 
+    @CrossOrigin
     @GetMapping
     fun getAllFlats(page: Int?, size: Int?, sort: String?, filters: Array<String>?): FlatsRepresentation {
         if (page == null || size == null) {
