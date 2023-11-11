@@ -1,8 +1,8 @@
 server:
     ssl:
-        key-store: classpath:keystore/server.p12
+        key-store: classpath:keystore/seerver.jks
         key-store-password: iveriver
-        key-store-type: PKCS12
+        key-store-type: jks
         key-alias: iver
         key-password: iveriver
         enabled: true
@@ -10,4 +10,4 @@ server:
 
 flat:
     api:
-        url: "https://localhost:8080/api/v1/"
+        url: "https://localhost:8443/flat-service-0.0.1-SNAPSHOT/api/v1/"
