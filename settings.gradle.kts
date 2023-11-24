@@ -3,6 +3,7 @@ rootProject.name = "Lab2SOA"
 include("services:agency-service")
 include("services:flat-service")
 include("services:eureka-server")
+include("services:config-server")
 include("common")
 
 pluginManagement {

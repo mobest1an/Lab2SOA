@@ -1,6 +1,15 @@
 spring:
     application:
         name: agency-service
+    profiles:
+        active: development
+    config:
+#        import: optional:configserver:http://admin:admin@localhost:8888/
+        import: configserver:http://localhost:8888
+    cloud:
+      config:
+        username: admin
+        password: admin
 
 server:
     ssl:
