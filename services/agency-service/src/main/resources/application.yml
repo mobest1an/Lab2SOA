@@ -4,34 +4,33 @@ spring:
     profiles:
         active: development
     config:
-#        import: optional:configserver:http://admin:admin@localhost:8888/
         import: configserver:http://localhost:8888
     cloud:
       config:
         username: admin
         password: admin
-
-server:
-#    ssl:
-#        key-store: classpath:keystore/seerver.jks
-#        key-store-password: iveriver
-#        key-store-type: jks
-#        key-alias: iver
-#        key-password: iveriver
-#        enabled: true
-    port: 8081
-
-flat:
-    api:
-        url: "https://localhost:8443/flat-service-0.0.1-SNAPSHOT/api/v1/"
-
-eureka:
-#    instance:
-#        non-secure-port-enabled: false
-#        secure-port-enabled: true
-#        non-secure-port: ${server.port}
-#        home-page-url: https://${eureka.instance.hostname}:${server.port}/
-#        secure-virtual-host-name: ${spring.application.name}
-    client:
-        service-url:
-            defaultZone: http://localhost:8761/eureka/
+#
+#server:
+##    ssl:
+##        key-store: classpath:keystore/seerver.jks
+##        key-store-password: iveriver
+##        key-store-type: jks
+##        key-alias: iver
+##        key-password: iveriver
+##        enabled: true
+#    port: 8081
+#
+#flat:
+#    api:
+#        url: "https://localhost:8443/flat-service-0.0.1-SNAPSHOT/api/v1/"
+#
+#eureka:
+##    instance:
+##        non-secure-port-enabled: false
+##        secure-port-enabled: true
+##        non-secure-port: ${server.port}
+##        home-page-url: https://${eureka.instance.hostname}:${server.port}/
+##        secure-virtual-host-name: ${spring.application.name}
+#    client:
+#        service-url:
+#            defaultZone: http://localhost:8761/eureka/

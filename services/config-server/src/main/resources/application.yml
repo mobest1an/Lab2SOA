@@ -6,7 +6,7 @@ spring:
       server:
         git:
 #          uri: ${CONFIG_GIT_URI:file://C:/Users/Ivan/IdeaProjects/LabSoa/lab-soa-git-config}
-          uri: ${CONFIG_GIT_URI:file://.}
+          uri: https://github.com/Pukk1/lab-soa-git-config
           clone-on-start: true
   security:
     user:
