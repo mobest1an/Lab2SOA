@@ -1,6 +1,15 @@
 spring:
   application:
     name: zuul-server
+  profiles:
+    active: development
+#  config:
+#    import: configserver:http://admin:admin@localhost:8888
+#  cloud:
+#    config:
+#      username: admin
+#      password: admin
+#      uri: http://admin:admin@localhost:8888
 
 server:
   port: 8762
@@ -36,6 +45,10 @@ zuul:
   ignoredServices: '*'
 
 ribbon:
+  ReadTimeout: 5000000
+  ConnectTimeout: 5000000
+  MaxAutoRetries: 3
+  MaxAutoRetriesNextServer: 3
   eureka:
     enabled: true
   OkToRetryOnAllOperations: true
