@@ -1,3 +1,7 @@
+spring:
+    application:
+        name: agency-service
+
 server:
     ssl:
         key-store: classpath:keystore/seerver.jks
@@ -11,3 +15,8 @@ server:
 flat:
     api:
         url: "https://localhost:8443/flat-service-0.0.1-SNAPSHOT/api/v1/"
+
+eureka:
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka/
