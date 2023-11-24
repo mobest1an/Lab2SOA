@@ -1,3 +1,4 @@
+import org.gradle.internal.Actions.set
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -32,6 +33,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    implementation("org.springframework.cloud:spring-cloud-starter-config")
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 }
 
 tasks.withType<KotlinCompile> {
@@ -47,4 +51,10 @@ tasks.withType<Test> {
 
 tasks.bootJar {
     archiveFileName.set("agency-service.jar")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom( "org.springframework.cloud:spring-cloud-dependencies:2021.0.8")
+    }
 }
