@@ -5,7 +5,7 @@ import com.iver.flatejb.utils.HibernateFactory
 import com.iver.flatejb.utils.SearchCriteria
 import com.iver.flatejb.utils.SearchOperation
 import java.util.*
-import javax.persistence.criteria.*
+import jakarta.persistence.criteria.*
 
 private fun <T : Enum<T>> getInstance(value: String, enumClass: Class<T>): T {
     return java.lang.Enum.valueOf(enumClass, value)

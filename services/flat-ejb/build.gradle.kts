@@ -3,6 +3,20 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     war
     kotlin("jvm")
+    kotlin("plugin.allopen")
+    kotlin("plugin.noarg")
+}
+
+allOpen {
+    annotations(
+        "javax.persistence.Entity",
+    )
+}
+
+noArg {
+    annotations(
+        "javax.persistence.Entity",
+    )
 }
 
 group = "com.iver"
@@ -17,19 +31,20 @@ repositories {
 }
 
 dependencies {
-    compileOnly("javax:javaee-api:8.0.1")
-
-    implementation("javax.persistence:javax.persistence-api:2.2")
-    compileOnly("jakarta.platform:jakarta.jakartaee-web-api:10.0.0")
+    compileOnly("jakarta.platform:jakarta.jakartaee-api:10.0.0")
+    implementation("org.hibernate:hibernate-core:6.2.4.Final")
     implementation("org.hibernate:hibernate-validator:8.0.0.Final")
     implementation("org.jboss.ejb3:jboss-ejb3-ext-api:2.3.0.Final")
-    implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
-    implementation("jakarta.ejb:jakarta.ejb-api:4.0.1")
-    implementation("org.hibernate:hibernate-core:6.2.4.Final")
     implementation("org.postgresql:postgresql:42.6.0")
 }
 
-
+configurations {
+    all {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+        exclude(group = "ch.qos.logback", module = "logback-classic")
+        exclude(group = "org.apache.logging.log4j", module = "log4j-to-slf4j")
+    }
+}
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {

@@ -6,8 +6,8 @@ import com.iver.flatejb.utils.FlatSpecificationBuilder
 import com.iver.flatejb.utils.HibernateFactory
 import com.iver.flatejb.utils.SortingParameters
 import com.iver.flatejb.utils.SortingType
-import javax.ejb.Remote
-import javax.ejb.Stateless
+import jakarta.ejb.Remote
+import jakarta.ejb.Stateless
 
 @Remote
 interface FlatService {

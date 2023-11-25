@@ -1,7 +1,7 @@
 package com.iver.flatejb.model
 
 import java.util.*
-import javax.persistence.*
+import jakarta.persistence.*
 
 typealias FlatId = Long
 

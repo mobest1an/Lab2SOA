@@ -2,7 +2,7 @@ package com.iver.flatejb.utils
 
 import com.iver.flatejb.model.Flat
 import com.iver.flatejb.service.FlatSpecification
-import javax.persistence.criteria.CriteriaQuery
+import jakarta.persistence.criteria.CriteriaQuery
 
 enum class SearchOperation {
     EQUAL, NOT_EQUAL, GREATER_THAN, GREATER_THAN_EQUAL, LESS_THAN, LESS_THAN_EQUAL;
