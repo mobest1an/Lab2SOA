@@ -8,6 +8,7 @@ import com.iver.flatejb.utils.SortingParameters
 import com.iver.flatejb.utils.SortingType
 import jakarta.ejb.Remote
 import jakarta.ejb.Stateless
+import org.jboss.ejb3.annotation.Pool
 
 @Remote
 interface FlatService {
@@ -30,6 +31,7 @@ interface FlatService {
 }
 
 @Stateless(name = "FlatService")
+@Pool("slsb-strict-max-pool")
 open class FlatServiceImpl: FlatService {
 
     private val hibernateFactory = HibernateFactory.getInstance()
@@ -93,7 +95,7 @@ open class FlatServiceImpl: FlatService {
 
     override fun getAllFlats(sort: String?): FlatsRepresentation {
         val result = hibernateFactory.runInTransaction {
-            it.createQuery("SELECT flat From Flat flat ORDER BY ${checkAscOrDesc(sort ?: "id")}", Flat::class.java)
+            it.createQuery("SELECT * From flat ORDER BY ${checkAscOrDesc(sort ?: "id")}", Flat::class.java)
                 .resultList
         }
 
