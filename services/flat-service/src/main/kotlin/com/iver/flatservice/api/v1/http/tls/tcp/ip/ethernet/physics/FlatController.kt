@@ -1,15 +1,13 @@
 package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics
 
-import com.iver.common.model.Flat
-import com.iver.common.model.FlatId
+import com.iver.flatejb.model.Flat
+import com.iver.flatejb.model.FlatId
+import com.iver.flatejb.model.FlatsRepresentation
+import com.iver.flatejb.utils.SortingParameters
 import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.requests.FlatRequest
 import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.FlatView
-import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.FlatsRepresentation
-import com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views.pageToRepresentation
 import com.iver.flatservice.service.FlatService
-import com.iver.flatservice.utils.FlatSpecificationBuilder
 import org.springframework.http.HttpStatus
-import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
@@ -66,26 +64,23 @@ class FlatController(
 
     @CrossOrigin
     @GetMapping
-    fun getAllFlats(page: Int?, size: Int?, sort: String?, filters: Array<String>?): FlatsRepresentation {
+    fun getAllFlats(page: Int?, size: Int?, sort: SortingParameters? = null, filters: Array<String>?, sorting: String?): FlatsRepresentation {
         if (page == null || size == null) {
             if (filters != null) {
-                val flatSpecificationBuilder = FlatSpecificationBuilder();
-
-                flatSpecificationBuilder.parseCriteria(filters)
 
                 return FlatsRepresentation(
                     flatService.getAllFlatsBySearchCriteria(
-                        flatSpecificationBuilder.build()!!,
+                        filters,
                         sort
-                    ).map { FlatView(it) },
+                    ).map { com.iver.flatejb.model.FlatView(it) },
                     0,
                     0
                 )
             }
 
             return FlatsRepresentation(
-                flatService.getAllFlats(sort).map {
-                    FlatView(it)
+                flatService.getAllFlats(sorting).map {
+                    com.iver.flatejb.model.FlatView(it)
                 },
                 0,
                 0
@@ -93,26 +88,18 @@ class FlatController(
         }
 
         if (filters != null) {
-            val flatSpecificationBuilder = FlatSpecificationBuilder();
-
-            flatSpecificationBuilder.parseCriteria(filters)
-
-            return pageToRepresentation(
-                flatService.getAllFlatsBySearchCriteriaPageable(
-                    flatSpecificationBuilder.build()!!,
-                    page,
-                    size,
-                    sort
-                ).map { FlatView(it) },
+            return flatService.getAllFlatsBySearchCriteriaPageable(
+                filters,
+                page,
+                size,
+                sort,
             )
         }
 
-        return pageToRepresentation(flatService.getAllFlatsPageable(
+        return flatService.getAllFlatsPageable(
             page = page,
             size = size,
-            sort
-        ).map {
-            FlatView(it)
-        })
+            sorting,
+        )
     }
 }

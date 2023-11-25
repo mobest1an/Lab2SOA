@@ -1,10 +1,12 @@
-package com.iver.flatservice.service
+package com.iver.flatejb.service
 
-import com.iver.common.model.*
-import com.iver.flatservice.utils.SearchCriteria
-import com.iver.flatservice.utils.SearchOperation
-import org.springframework.data.jpa.domain.Specification
+import com.iver.flatejb.model.*
+import com.iver.flatejb.utils.HibernateFactory
+import com.iver.flatejb.utils.SearchCriteria
+import com.iver.flatejb.utils.SearchOperation
 import java.util.*
+import javax.persistence.EntityManager
+import javax.persistence.PersistenceContext
 import javax.persistence.criteria.*
 
 private fun <T : Enum<T>> getInstance(value: String, enumClass: Class<T>): T {
@@ -46,14 +48,21 @@ private fun <T : Comparable<T>> getCommonPredicates(
     return predicates.toTypedArray()
 }
 
-class FlatSpecification(private val searchCriteria: SearchCriteria) : Specification<Flat> {
+@PersistenceContext
+private var entityManager: EntityManager? = null
 
-    override fun toPredicate(root: Root<Flat>, query: CriteriaQuery<*>, criteriaBuilder: CriteriaBuilder): Predicate? {
+class FlatSpecification(private val searchCriteria: SearchCriteria) {
+    private val criteriaBuilder = entityManager!!.criteriaBuilder
+    private val criteriaQuery = criteriaBuilder.createQuery(Flat::class.java)
+    private val root = criteriaQuery.from(Flat::class.java)
+
+    val select = criteriaQuery.select(root)
+
+    fun toPredicate(): Predicate? {
         val strToSearch = searchCriteria.value.toString()
         val baseKey = searchCriteria.key.split(".")[0]
 
         val predicates = mutableListOf<Predicate>()
-
 
         when (root.get<Any>(baseKey).javaType) {
             Furnish.FINE.javaClass -> {

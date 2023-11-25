@@ -1,8 +1,12 @@
-package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.views
+package com.iver.flatejb.model
 
-import com.iver.flatejb.model.*
-import org.springframework.data.domain.Page
 import java.util.*
+
+class FlatsRepresentation(
+    val flats: List<FlatView>,
+    val elements: Long,
+    val pages: Int,
+)
 
 class FlatView(
     val id: FlatId, //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -30,14 +34,4 @@ class FlatView(
         flat.house,
         flat.cost,
     )
-}
-
-class FlatsRepresentation(
-    val flats: List<FlatView>,
-    val elements: Long,
-    val pages: Int,
-)
-
-fun pageToRepresentation(page: Page<FlatView>): FlatsRepresentation {
-    return FlatsRepresentation(page.content, page.totalElements, page.totalPages)
 }

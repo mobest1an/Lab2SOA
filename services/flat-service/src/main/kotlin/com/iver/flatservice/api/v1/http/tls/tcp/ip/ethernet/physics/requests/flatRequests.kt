@@ -1,6 +1,6 @@
 package com.iver.flatservice.api.v1.http.tls.tcp.ip.ethernet.physics.requests
 
-import com.iver.common.model.*
+import com.iver.flatejb.model.*
 import java.util.*
 import javax.validation.constraints.Max
 import javax.validation.constraints.Min

@@ -6,6 +6,7 @@ server:
     key-alias: iver
     key-password: iveriver
     enabled: true
+  port: 8082
 
 
 spring:

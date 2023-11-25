@@ -22,6 +22,7 @@ repositories {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":services:flat-ejb"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
@@ -34,16 +35,18 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+    implementation("org.wildfly:wildfly-ejb-client-bom:26.1.1.Final")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
-configurations {
-    all {
-        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
-        exclude(group = "ch.qos.logback", module = "logback-classic")
-        exclude(group = "org.apache.logging.log4j", module = "log4j-to-slf4j")
-    }
-}
+//configurations {
+//    all {
+//        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+//        exclude(group = "ch.qos.logback", module = "logback-classic")
+//        exclude(group = "org.apache.logging.log4j", module = "log4j-to-slf4j")
+//    }
+//}
 
 
 tasks.withType<KotlinCompile> {

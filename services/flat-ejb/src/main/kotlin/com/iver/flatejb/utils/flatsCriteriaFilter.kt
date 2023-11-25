@@ -1,8 +1,8 @@
-package com.iver.flatservice.utils
+package com.iver.flatejb.utils
 
-import com.iver.common.model.Flat
-import com.iver.flatservice.service.FlatSpecification
-import org.springframework.data.jpa.domain.Specification
+import com.iver.flatejb.model.Flat
+import com.iver.flatejb.service.FlatSpecification
+import javax.persistence.criteria.CriteriaQuery
 
 enum class SearchOperation {
     EQUAL, NOT_EQUAL, GREATER_THAN, GREATER_THAN_EQUAL, LESS_THAN, LESS_THAN_EQUAL;
@@ -46,7 +46,7 @@ class FlatSpecificationBuilder {
         }
     }
 
-    fun with(
+    private fun with(
         key: String,
         operation: String,
         value: Any
@@ -55,19 +55,16 @@ class FlatSpecificationBuilder {
         return this
     }
 
-    fun with(searchCriteria: SearchCriteria): FlatSpecificationBuilder {
-        params.add(searchCriteria)
-        return this
-    }
-
-    fun build(): Specification<Flat>? {
+    fun build(): CriteriaQuery<Flat>? {
         if (params.size == 0) {
             return null
         }
-        var result: Specification<Flat> = FlatSpecification(params[0])
+        var flatSpecification = FlatSpecification(params[0])
+        var result = flatSpecification.select.where(flatSpecification.toPredicate())
         for (idx in 1 until params.size) {
             val criteria = params[idx]
-            result = Specification.where(result).and(FlatSpecification(criteria))
+            flatSpecification = FlatSpecification(criteria)
+            result = flatSpecification.select.where(flatSpecification.toPredicate())
         }
         return result
     }
