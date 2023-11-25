@@ -1,13 +1,27 @@
 package com.iver.flatejb.utils
 
+import jakarta.annotation.Resource
 import jakarta.persistence.EntityManager
 import jakarta.persistence.EntityTransaction
 import jakarta.persistence.Persistence
 import java.util.function.Function
+import javax.sql.DataSource
 
 class HibernateFactory private constructor() {
 
-    private val entityManagerFactory = Persistence.createEntityManagerFactory("default")
+//    @Resource(name = "java:/PostgresDS")
+//    private lateinit var dataSource: DataSource
+
+    private val configMap = mutableMapOf<String, String>()
+
+    init {
+        configMap["javax.persistence.provider"] = "org.hibernate.jpa.HibernatePersistenceProvider"
+        configMap["javax.persistence.jtaDataSource"] = "java:/PostgresDS"
+        configMap["hibernate.hbm2ddl.auto"] = "update"
+        configMap["hibernate.show_sql"] = "true"
+    }
+
+    private val entityManagerFactory = Persistence.createEntityManagerFactory("default", configMap)
 
 //    @PersistenceContext(unitName = "default")
 //    private lateinit var entityManager: EntityManager
