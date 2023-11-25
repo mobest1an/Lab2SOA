@@ -5,8 +5,6 @@ import com.iver.flatejb.utils.HibernateFactory
 import com.iver.flatejb.utils.SearchCriteria
 import com.iver.flatejb.utils.SearchOperation
 import java.util.*
-import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
 import javax.persistence.criteria.*
 
 private fun <T : Enum<T>> getInstance(value: String, enumClass: Class<T>): T {
@@ -48,11 +46,9 @@ private fun <T : Comparable<T>> getCommonPredicates(
     return predicates.toTypedArray()
 }
 
-@PersistenceContext
-private var entityManager: EntityManager? = null
-
 class FlatSpecification(private val searchCriteria: SearchCriteria) {
-    private val criteriaBuilder = entityManager!!.criteriaBuilder
+    private val entityManager = HibernateFactory.getInstance().getEntityManager()
+    private val criteriaBuilder = entityManager.criteriaBuilder
     private val criteriaQuery = criteriaBuilder.createQuery(Flat::class.java)
     private val root = criteriaQuery.from(Flat::class.java)
 

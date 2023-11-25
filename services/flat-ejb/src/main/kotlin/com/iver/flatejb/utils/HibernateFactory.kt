@@ -2,12 +2,15 @@ package com.iver.flatejb.utils
 
 import javax.persistence.EntityManager
 import javax.persistence.EntityTransaction
-import javax.persistence.Persistence
 import java.util.function.Function
+import javax.persistence.PersistenceContext
 
 class HibernateFactory private constructor() {
 
-    private val entityManagerFactory = Persistence.createEntityManagerFactory("flat")
+//    private val entityManagerFactory = Persistence.createEntityManagerFactory("flat")
+
+    @PersistenceContext(unitName = "default")
+    private lateinit var entityManager: EntityManager
 
     companion object {
         @Volatile
@@ -25,19 +28,18 @@ class HibernateFactory private constructor() {
         }
     }
 
-    fun shutdown() {
-        if (entityManagerFactory != null) {
-            entityManagerFactory.close()
-            instance = null
-        }
-    }
+//    fun shutdown() {
+//        if (entityManagerFactory != null) {
+//            entityManagerFactory.close()
+//            instance = null
+//        }
+//    }
 
-    fun createEntityManager(): EntityManager {
-        return entityManagerFactory.createEntityManager()
+    fun getEntityManager(): EntityManager {
+        return entityManager
     }
 
     fun <T> runInTransaction(function: Function<EntityManager, T>): T {
-        val entityManager: EntityManager = entityManagerFactory.createEntityManager()
         val transaction: EntityTransaction = entityManager.transaction
         transaction.begin()
         var success = false

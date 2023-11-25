@@ -8,8 +8,6 @@ import com.iver.flatejb.utils.SortingParameters
 import com.iver.flatejb.utils.SortingType
 import javax.ejb.Remote
 import javax.ejb.Stateless
-import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
 
 @Remote
 interface FlatService {
@@ -125,9 +123,6 @@ open class FlatServiceImpl: FlatService {
         )
     }
 
-    @PersistenceContext
-    private var entityManager: EntityManager? = null
-
     override fun getAllFlatsBySearchCriteria(
         filters: Array<String>, sort: SortingParameters?,
     ): List<Flat> {
@@ -135,7 +130,7 @@ open class FlatServiceImpl: FlatService {
         flatSpecificationBuilder.parseCriteria(filters)
         val query = flatSpecificationBuilder.build()
 
-        val criteriaBuilder = entityManager!!.criteriaBuilder
+        val criteriaBuilder = hibernateFactory.getEntityManager().criteriaBuilder
         val criteriaQuery = criteriaBuilder.createQuery(Flat::class.java)
         val root = criteriaQuery.from(Flat::class.java)
 
@@ -168,7 +163,7 @@ open class FlatServiceImpl: FlatService {
         flatSpecificationBuilder.parseCriteria(filters)
         val query = flatSpecificationBuilder.build()
 
-        val criteriaBuilder = entityManager!!.criteriaBuilder
+        val criteriaBuilder = hibernateFactory.getEntityManager().criteriaBuilder
         val criteriaQuery = criteriaBuilder.createQuery(Flat::class.java)
         val root = criteriaQuery.from(Flat::class.java)
 

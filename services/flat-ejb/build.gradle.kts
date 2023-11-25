@@ -20,8 +20,12 @@ dependencies {
     compileOnly("javax:javaee-api:8.0.1")
 
     implementation("javax.persistence:javax.persistence-api:2.2")
+    compileOnly("jakarta.platform:jakarta.jakartaee-web-api:10.0.0")
+    implementation("org.hibernate:hibernate-validator:8.0.0.Final")
+    implementation("org.jboss.ejb3:jboss-ejb3-ext-api:2.3.0.Final")
+    implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
+    implementation("jakarta.ejb:jakarta.ejb-api:4.0.1")
     implementation("org.hibernate:hibernate-core:6.2.4.Final")
-    implementation("org.hibernate:hibernate-entitymanager:5.6.15.Final")
     implementation("org.postgresql:postgresql:42.6.0")
 }
 
