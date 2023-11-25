@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("jakarta.platform:jakarta.jakartaee-api:10.0.0")
+    implementation("jakarta.platform:jakarta.jakartaee-api:10.0.0")
     implementation("org.hibernate.orm:hibernate-core:6.2.4.Final")
     implementation("org.hibernate.validator:hibernate-validator:8.0.0.Final")
     implementation("org.jboss.ejb3:jboss-ejb3-ext-api:2.3.0.Final")

@@ -1,12 +1,13 @@
 package com.iver.flatejb.model
 
+import java.io.Serializable
 import java.util.*
 
 class FlatsRepresentation(
     val flats: List<FlatView>,
     val elements: Long,
     val pages: Int,
-)
+) : Serializable
 
 class FlatView(
     val id: FlatId, //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -20,7 +21,7 @@ class FlatView(
     val transport: Transport, //Поле может быть null
     val house: House, //Поле не может быть null
     val cost: Double,
-) {
+) : Serializable {
     constructor(flat: Flat) : this(
         flat.id,
         flat.name,

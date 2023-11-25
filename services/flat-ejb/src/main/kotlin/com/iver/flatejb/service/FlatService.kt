@@ -93,7 +93,7 @@ open class FlatServiceImpl: FlatService {
 
     override fun getAllFlats(sort: String?): FlatsRepresentation {
         val result = hibernateFactory.runInTransaction {
-            it.createQuery("SELECT * From flat ORDER BY ${checkAscOrDesc(sort ?: "id")}", Flat::class.java)
+            it.createQuery("SELECT flat From Flat flat ORDER BY ${checkAscOrDesc(sort ?: "id")}", Flat::class.java)
                 .resultList
         }
 
