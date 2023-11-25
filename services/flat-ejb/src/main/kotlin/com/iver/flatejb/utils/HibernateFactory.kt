@@ -9,7 +9,7 @@ class HibernateFactory private constructor() {
 
 //    private val entityManagerFactory = Persistence.createEntityManagerFactory("flat")
 
-    @PersistenceContext(unitName = "default")
+    @PersistenceContext(unitName = "db_unit")
     private lateinit var entityManager: EntityManager
 
     companion object {
