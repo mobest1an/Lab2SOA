@@ -17,4 +17,11 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+<!--    <xs:element name="getTotalCostRequest">-->
+<!--        <xs:complexType>-->
+<!--            <xs:sequence/>-->
+<!--        </xs:complexType>-->
+<!--    </xs:element>-->
+
 </xs:schema>
