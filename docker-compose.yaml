@@ -18,20 +18,26 @@ services:
       timeout: 5s
       retries: 5
 
-  agency-service:
-    build: services/agency-service
-    restart: unless-stopped
+  consul:
+    image: consul:1.1.0
+    hostname: localhost
     ports:
-      - "8081:8080"
-    depends_on:
-      postgres:
-        condition: service_healthy
+      - "8500:8500"
 
-  flat-service:
-    build: services/flat-service
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-    depends_on:
-      postgres:
-        condition: service_healthy
+#  agency-service:
+#    build: services/agency-service
+#    restart: unless-stopped
+#    ports:
+#      - "8081:8080"
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#
+#  flat-service:
+#    build: services/flat-service
+#    restart: unless-stopped
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      postgres:
+#        condition: service_healthy

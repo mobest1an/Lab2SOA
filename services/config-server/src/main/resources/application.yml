@@ -1,0 +1,14 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    config:
+      server:
+        git:
+#          uri: ${CONFIG_GIT_URI:file://C:/Users/Ivan/IdeaProjects/LabSoa/lab-soa-git-config}
+          uri: https://github.com/Pukk1/lab-soa-git-config
+          clone-on-start: true
+  security:
+    user:
+      name: admin
+      password: admin

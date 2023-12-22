@@ -37,6 +37,8 @@ dependencies {
 
     implementation("org.wildfly:wildfly-ejb-client-bom:26.1.1.Final")
 
+    implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
@@ -62,4 +64,10 @@ tasks.withType<Test> {
 
 tasks.bootJar {
     archiveFileName.set("flat-service.jar")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom( "org.springframework.cloud:spring-cloud-dependencies:2021.0.8")
+    }
 }

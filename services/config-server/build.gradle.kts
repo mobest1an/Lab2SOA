@@ -1,4 +1,3 @@
-import org.gradle.internal.Actions.set
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -21,22 +20,16 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":common"))
-
+    implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
-
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
-
-    implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.cloud:spring-cloud-config-server")
 
-    implementation("org.springframework.cloud:spring-cloud-starter-config")
-    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-//    implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
 }
 
 tasks.withType<KotlinCompile> {
@@ -51,11 +44,13 @@ tasks.withType<Test> {
 }
 
 tasks.bootJar {
-    archiveFileName.set("agency-server.jar")
+    archiveFileName.set("config-server.jar")
 }
+
+tasks.register("prepareKotlinBuildScriptModel")
 
 dependencyManagement {
     imports {
-        mavenBom( "org.springframework.cloud:spring-cloud-dependencies:2021.0.8")
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.8")
     }
 }
