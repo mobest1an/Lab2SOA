@@ -38,7 +38,7 @@ open class FlatServiceImpl: FlatService {
 
     override fun getFlatById(flatId: Long): Flat {
         return hibernateFactory.runInTransaction {
-            it.createQuery("SELECT * From flat WHERE id = $flatId", Flat::class.java).singleResult
+            it.createQuery("SELECT flat From Flat flat WHERE flat.id = $flatId", Flat::class.java).singleResult
         }
     }
 
@@ -58,13 +58,13 @@ open class FlatServiceImpl: FlatService {
 
     override fun deleteFlat(flatId: FlatId) {
         hibernateFactory.runInTransaction {
-            it.createQuery("DELETE * FROM flat WHERE id = $flatId", Flat::class.java)
+            it.createQuery("DELETE From Flat flat WHERE flat.id = $flatId", Flat::class.java)
         }
     }
 
     override fun deleteByTransport(transportCode: String) {
         val flat = hibernateFactory.runInTransaction {
-            it.createQuery("SELECT * FROM flat WHERE transport = $transportCode", Flat::class.java).resultList[0]
+            it.createQuery("SELECT flat From Flat flat WHERE flat.transport = $transportCode", Flat::class.java).resultList[0]
         }
         deleteFlat(flat.id)
     }
@@ -81,7 +81,7 @@ open class FlatServiceImpl: FlatService {
 
     override fun getFlatsNameStartsWith(subName: String): FlatsRepresentation {
         val result = hibernateFactory.runInTransaction {
-            it.createQuery("SELECT * From flat WHERE name LIKE $subName%", Flat::class.java).resultList
+            it.createQuery("SELECT flat From Flat flat WHERE flat.name LIKE $subName%", Flat::class.java).resultList
         }
 
         return FlatsRepresentation(
@@ -95,7 +95,7 @@ open class FlatServiceImpl: FlatService {
 
     override fun getAllFlats(sort: String?): FlatsRepresentation {
         val result = hibernateFactory.runInTransaction {
-            it.createQuery("SELECT * From flat ORDER BY ${checkAscOrDesc(sort ?: "id")}", Flat::class.java)
+            it.createQuery("SELECT flat From Flat flat ORDER BY ${checkAscOrDesc(sort ?: "id")}", Flat::class.java)
                 .resultList
         }
 
@@ -110,7 +110,7 @@ open class FlatServiceImpl: FlatService {
 
     override fun getAllFlatsPageable(page: Int, size: Int, sort: String?): FlatsRepresentation {
         val result = hibernateFactory.runInTransaction {
-            it.createQuery("SELECT * From flat ORDER BY ${checkAscOrDesc(sort ?: "id")}", Flat::class.java)
+            it.createQuery("SELECT flat From Flat flat ORDER BY ${checkAscOrDesc(sort ?: "id")}", Flat::class.java)
                 .setFirstResult(page * size)
                 .setMaxResults(size)
                 .resultList
@@ -136,21 +136,21 @@ open class FlatServiceImpl: FlatService {
         val criteriaQuery = criteriaBuilder.createQuery(Flat::class.java)
         val root = criteriaQuery.from(Flat::class.java)
 
-       if (sort != null) {
-           if (sort.sortingType == SortingType.DESC) {
-               if (sort.nested) {
-                   query!!.orderBy(criteriaBuilder.desc(root.get<Any>(sort.fieldName).get<Any>(sort.nestedFieldName)))
-               } else {
-                   query!!.orderBy(criteriaBuilder.desc(root.get<Any>(sort.fieldName)))
-               }
-           } else {
-               if (sort.nested) {
-                   query!!.orderBy(criteriaBuilder.asc(root.get<Any>(sort.fieldName).get<Any>(sort.nestedFieldName)))
-               } else {
-                   query!!.orderBy(criteriaBuilder.asc(root.get<Any>(sort.fieldName)))
-               }
-           }
-       }
+        if (sort != null) {
+            if (sort.sortingType == SortingType.DESC) {
+                if (sort.nested) {
+                    query!!.orderBy(criteriaBuilder.desc(root.get<Any>(sort.fieldName).get<Any>(sort.nestedFieldName)))
+                } else {
+                    query!!.orderBy(criteriaBuilder.desc(root.get<Any>(sort.fieldName)))
+                }
+            } else {
+                if (sort.nested) {
+                    query!!.orderBy(criteriaBuilder.asc(root.get<Any>(sort.fieldName).get<Any>(sort.nestedFieldName)))
+                } else {
+                    query!!.orderBy(criteriaBuilder.asc(root.get<Any>(sort.fieldName)))
+                }
+            }
+        }
 
         return hibernateFactory.runInTransaction {
             it.createQuery(query)

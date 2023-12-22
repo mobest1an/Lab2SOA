@@ -1,7 +1,7 @@
 package com.iver.flatejb.utils
 
 enum class SortingType {
-    ASK,
+    ASC,
     DESC,
 }
 
