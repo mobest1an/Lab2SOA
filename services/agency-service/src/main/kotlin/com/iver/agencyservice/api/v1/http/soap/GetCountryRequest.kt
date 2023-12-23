@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.*;
     name = "", propOrder = ["name"
     ]
 )
-@XmlRootElement(namespace = "http://iver.com", name = "getCountryRequest")
+@XmlRootElement(name = "getCountryRequest")
 class GetCountryRequest {
     /**
      * Gets the value of the name property.

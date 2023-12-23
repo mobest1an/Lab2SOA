@@ -34,13 +34,29 @@ class SoapWebServiceConfig : WsConfigurerAdapter() {
 //        return ServletRegistrationBean(servlet, "/ws/*")
 //    }
 
+//    @Bean
+//    fun exceptionResolver(): SoapFaultMappingExceptionResolver {
+//        val exceptionResolver: SoapFaultMappingExceptionResolver = DetailSoapFaultDefinitionExceptionResolver()
+//
+//        val faultDefinition = SoapFaultDefinition()
+//        faultDefinition.faultCode = SoapFaultDefinition.SERVER
+//        exceptionResolver.setDefaultFault(faultDefinition)
+//
+//        val errorMappings = Properties()
+//        errorMappings.setProperty(Exception::class.java.name, SoapFaultDefinition.SERVER.toString())
+//        errorMappings.setProperty(ServiceFaultException::class.java.getName(), SoapFaultDefinition.SERVER.toString())
+//        exceptionResolver.setExceptionMappings(errorMappings)
+//        exceptionResolver.order = 1
+//        return exceptionResolver
+//    }
+
     @Bean(name = ["agency"])
-    fun defaultWsdl11Definition(countriesSchema: XsdSchema?): DefaultWsdl11Definition {
+    fun defaultWsdl11Definition(schema: XsdSchema?): DefaultWsdl11Definition {
         val wsdl11Definition = DefaultWsdl11Definition()
         wsdl11Definition.setPortTypeName("AgencyPort")
         wsdl11Definition.setLocationUri("/ws")
         wsdl11Definition.setTargetNamespace("http://com.iver")
-        wsdl11Definition.setSchema(countriesSchema)
+        wsdl11Definition.setSchema(schema)
         return wsdl11Definition
     }
 
@@ -53,7 +69,7 @@ class SoapWebServiceConfig : WsConfigurerAdapter() {
     }
 
     @Bean
-    fun calculatorServiceSchema(): XsdSchema {
+    fun agencySchema(): XsdSchema {
         return SimpleXsdSchema(ClassPathResource("agency.xsd"))
     }
 }
