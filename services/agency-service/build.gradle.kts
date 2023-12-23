@@ -48,10 +48,6 @@ dependencies {
     implementation("org.glassfish.jaxb:jaxb-runtime")
 
     jaxb("com.sun.xml.bind:jaxb-xjc:2.1.7")
-//    implementation(files(genJaxb.classesDir).builtBy(genJaxb))
-
-
-//    implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
 }
 
 configurations {

@@ -9,6 +9,23 @@ spring:
       config:
         username: admin
         password: admin
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        ws:
+          server:
+            MessageTracing:
+              sent: DEBUG
+              received: TRACE
+          client:
+            MessageTracing:
+              received: TRACE
+              sent: DEBUG
+
+
 #
 #server:
 ##    ssl:
