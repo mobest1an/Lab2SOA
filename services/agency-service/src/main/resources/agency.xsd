@@ -18,10 +18,42 @@
         </xs:complexType>
     </xs:element>
 
-<!--    <xs:element name="getTotalCostRequest">-->
-<!--        <xs:complexType>-->
-<!--            <xs:sequence/>-->
-<!--        </xs:complexType>-->
-<!--    </xs:element>-->
+    <xs:element name="getCheapestFlatRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id1" type="xs:long"/>
+                <xs:element name="id2" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
+    <xs:element name="getCountryRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getCheapestFlatResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="coordinates.id" type="xs:long"/>
+                <xs:element name="coordinates.x" type="xs:int"/>
+                <xs:element name="coordinates.y" type="xs:long"/>
+                <xs:element name="creationDate" type="xs:date"/>
+                <xs:element name="area" type="xs:int"/>
+                <xs:element name="numberOfRooms" type="xs:int"/>
+                <xs:element name="furnish" type="xs:string"/>
+                <xs:element name="view" type="xs:string"/>
+                <xs:element name="transport" type="xs:string"/>
+                <xs:element name="house.id" type="xs:long"/>
+                <xs:element name="house.name" type="xs:string"/>
+                <xs:element name="house.numberOfFlatsOnFloor" type="xs:int"/>
+                <xs:element name="cost" type="xs:double"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

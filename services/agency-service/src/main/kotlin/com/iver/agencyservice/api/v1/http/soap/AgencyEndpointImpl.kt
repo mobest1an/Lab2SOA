@@ -4,7 +4,10 @@ import com.iver.agencyservice.service.AgencyService
 import org.springframework.stereotype.Service
 import org.springframework.ws.server.endpoint.annotation.Endpoint
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot
+import org.springframework.ws.server.endpoint.annotation.RequestPayload
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload
+import java.util.*
+import javax.xml.datatype.DatatypeFactory
 
 
 @Service
@@ -13,16 +16,34 @@ class AgencyEndpointImpl(
     private val agencyService: AgencyService,
 ) {
 
-//    @Bean
-//    fun messageDispatcherServlet(): MessageDispatcherServlet {
-//        return MessageDispatcherServlet()
-//    }
+    @PayloadRoot(namespace = "http://iver.com", localPart = "getCountryRequest")
+    @ResponsePayload
+    fun getCheapestFlat(@RequestPayload getCountryRequest: GetCountryRequest): GetCheapestFlatResponse {
+//        val res = agencyService.getCheapestFlat(getCheapestFlatRequest.id1!!, getCheapestFlatRequest.id2!!)
+        val res = agencyService.getCheapestFlat(1,2)
+        val response = GetCheapestFlatResponse()
+        response.id = res.id
+        response.name = res.name
+        response.coordinatesId = res.coordinates.id
+        response.coordinatesX = res.coordinates.x
+        response.coordinatesY = res.coordinates.y
+        response.creationDate = res.let {
+            val c = GregorianCalendar()
+            c.time = it.creationDate
+            DatatypeFactory.newInstance().newXMLGregorianCalendar(c)
+        }
+        response.area = res.area
+        response.numberOfRooms = res.numberOfRooms
+        response.furnish = res.furnish.name
+        response.view = res.view.name
+        response.transport = res.transport.name
+        response.houseId = res.house.id
+        response.houseName = res.house.name
+        response.houseNumberOfFlatsOnFloor = res.house.numberOfFlatsOnFloor
+        response.cost = res.cost
 
-//    @PayloadRoot(namespace = "http://iver.com", localPart = "getCheapestFlatRequest")
-//    @ResponsePayload
-//    override fun getCheapestFlat(id1: Long, id2: Long): FlatView {
-//        return agencyService.getCheapestFlat(id1, id2)
-//    }
+        return response
+    }
 
     @PayloadRoot(namespace = "http://iver.com", localPart = "getTotalCostRequest")
     @ResponsePayload
