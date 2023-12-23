@@ -44,7 +44,9 @@ dependencies {
 
     implementation("org.reactivestreams:reactive-streams:1.0.1")
     implementation("javax.activation:activation:1.1.1")
+//    implementation("jakarta.activation:jakarta.activation-api:2.1.2")
     implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+//    implementation("jakarta.xml.bind:jakarta.xml.bind-api:4.0.1")
     implementation("org.glassfish.jaxb:jaxb-runtime")
 
     jaxb("com.sun.xml.bind:jaxb-xjc:2.1.7")

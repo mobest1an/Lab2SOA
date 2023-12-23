@@ -16,9 +16,9 @@ class AgencyEndpointImpl(
     private val agencyService: AgencyService,
 ) {
 
-    @PayloadRoot(namespace = "http://iver.com", localPart = "getCountryRequest")
+    @PayloadRoot(namespace = "http://iver.com", localPart = "getCheapestFlatRequest")
     @ResponsePayload
-    fun getCheapestFlat(@RequestPayload getCountryRequest: GetCountryRequest): GetCheapestFlatResponse {
+    fun getCheapestFlat(@RequestPayload getCheapestFlatRequest: GetCheapestFlatRequest): GetCheapestFlatResponse {
 //        val res = agencyService.getCheapestFlat(getCheapestFlatRequest.id1!!, getCheapestFlatRequest.id2!!)
         val res = agencyService.getCheapestFlat(1,2)
         val response = GetCheapestFlatResponse()
