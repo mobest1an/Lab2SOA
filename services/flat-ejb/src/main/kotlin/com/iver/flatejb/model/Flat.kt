@@ -2,6 +2,7 @@ package com.iver.flatejb.model
 
 import java.util.*
 import jakarta.persistence.*
+import java.io.Serializable
 
 typealias FlatId = Long
 
@@ -25,4 +26,4 @@ data class Flat(
     @OneToOne(fetch = FetchType.EAGER)
     val house: House, //Поле не может быть null
     val cost: Double,
-)
+): Serializable

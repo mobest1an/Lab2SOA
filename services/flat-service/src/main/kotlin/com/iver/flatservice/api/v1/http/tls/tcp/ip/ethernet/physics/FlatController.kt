@@ -87,7 +87,7 @@ class FlatController(
             )
         }
 
-        if (filters != null) {
+        if (!filters.isNullOrEmpty()) {
             return flatService.getAllFlatsBySearchCriteriaPageable(
                 filters,
                 page,
