@@ -1,11 +1,11 @@
 server:
-  ssl:
-    key-store: classpath:keystore/seerver.jks
-    key-store-password: iveriver
-    key-store-type: jks
-    key-alias: iver
-    key-password: iveriver
-    enabled: true
+#  ssl:
+#    key-store: classpath:keystore/seerver.jks
+#    key-store-password: iveriver
+#    key-store-type: jks
+#    key-alias: iver
+#    key-password: iveriver
+#    enabled: true
   port: 8082
 
 
